@@ -30,7 +30,7 @@ public class MapGenerator : MonoBehaviour {
 		}
 	}
 
-	void OnTextureValuesUpdate() {
+	void OnTextureValuesUpdated() {
 		textureData.ApplyToMaterial (terrainMaterial);
 	}
 
@@ -113,6 +113,8 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 
+		textureData.UpdateMeshHeights (terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+
 		return new MapData (noiseMap);
 	}
 
@@ -126,8 +128,8 @@ public class MapGenerator : MonoBehaviour {
 			noiseData.OnValuesUpdated += OnValuesUpdated;
 		}
 		if (textureData != null) {
-			textureData.OnValuesUpdated -= OnValuesUpdated;
-			textureData.OnValuesUpdated += OnValuesUpdated;
+			textureData.OnValuesUpdated -= OnTextureValuesUpdated;
+			textureData.OnValuesUpdated += OnTextureValuesUpdated;
 		}
 	}
 
